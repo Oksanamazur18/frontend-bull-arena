@@ -1,0 +1,14 @@
+.head-mat{
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+.matador{
+    background-image: url("https://media.istockphoto.com/id/466043928/vector/bullfighter-holding-a-red-cape.jpg?s=612x612&w=0&k=20&c=g00nnSFR0SVqlPQlAOpp7OX2QAyF9LTPtDDvmRfGXVk=");
+    height: 200px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: rgb(82, 82, 252);
+}
