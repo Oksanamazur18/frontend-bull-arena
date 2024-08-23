@@ -8,7 +8,7 @@ interface MatadorProps {
     matadorPosition?: number;
 }
 
-export const Matador: React.FC<MatadorProps> = ({ applause, setMatarodPosition, matadorPosition }) => {
+const Matador: React.FC<MatadorProps> = ({ applause, setMatarodPosition, matadorPosition }) => {
     const [lastApplause, setLastApplause] = useState<number | null>(null);
 
     useEffect(() => {
@@ -41,19 +41,22 @@ export const Matador: React.FC<MatadorProps> = ({ applause, setMatarodPosition, 
 
 
     useEffect(() => {
-        console.log(applause);
         const audio = new Audio(`/sounds/applause_${applause}.wav`);
         audio.play();
-        if (applause !== undefined)
+        if (applause === 3 && applause !== lastApplause) {
             setLastApplause(applause);
 
+        }
+
     }, [applause, lastApplause]);
+    const mat = <div className="matador"></div>
+    return (
+        <div>
+          <pre>{mat}</pre>
+        </div>
+      );
+    };
 
-    if (applause !== 3 || applause === lastApplause) {
-        return null;
-    }
-    return <div className='matador'>
-    </div>;
+export default React.memo(Matador);
 
-};
 

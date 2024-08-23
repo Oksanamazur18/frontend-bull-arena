@@ -20,10 +20,7 @@ class OldMatador extends Component<MatadorProps, MatadorState> {
   }
 
   componentDidMount() {
-    const { applause } = this.props;
-    const audio = new Audio(`/sounds/applause_${applause}.wav`);
-      audio.play();
-      console.log(applause);
+    this.playApplauseSound();
     document.addEventListener('bullRun', this.handleBullRun as EventListener);
   }
 
@@ -32,23 +29,17 @@ class OldMatador extends Component<MatadorProps, MatadorState> {
   }
 
   componentDidUpdate(prevProps: MatadorProps) {
-    const { applause } = this.props;
-    const { lastApplause } = this.state;
-   
-
-    if ( applause !== lastApplause) {
-        console.log(applause);
-      this.setState({ lastApplause: applause });
+    if (this.props.applause !== prevProps.applause) {
+      this.playApplauseSound();
+      this.setState({ lastApplause: this.props.applause });
     }
   }
 
   shouldComponentUpdate(nextProps: MatadorProps, nextState: MatadorState) {
-    const { applause } = this.props;
-    const { lastApplause } = this.state;
-        if((applause===3 && lastApplause!==applause)){
-            return true
-        }
-        return false;
+    if (nextProps.applause === 3 && nextProps.applause !== nextState.lastApplause) {
+      return true;
+    }
+    return false;
   }
 
   handleBullRun = (event: CustomEvent) => {
@@ -67,6 +58,14 @@ class OldMatador extends Component<MatadorProps, MatadorState> {
       newPosition = Math.floor(Math.random() * 9);
     } while (newPosition === currentPosition);
     return newPosition;
+  }
+
+  playApplauseSound() {
+    const { applause } = this.props;
+    if (applause !== undefined) {
+      const audio = new Audio(`/sounds/applause_${applause}.wav`);
+      audio.play();
+    }
   }
 
   render() {
